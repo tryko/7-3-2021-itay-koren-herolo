@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Switch } from "@chakra-ui/react";
 
 const SwitchBtn = ({
@@ -13,7 +13,7 @@ const SwitchBtn = ({
   const handleToggle = (e) => {
     setActiveValue((prevValue) => {
       let selectedVal = undefined;
-      if (prevValue === defaultValue) {
+      if (prevValue === defaultValue && switchValue) {
         selectedVal = switchValue;
       } else {
         selectedVal = defaultValue;
