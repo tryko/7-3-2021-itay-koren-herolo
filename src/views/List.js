@@ -1,10 +1,20 @@
 import { useState } from "react";
 import Items from "../features/BoughtRecived/Items";
-import { selectBought } from "./../features/BoughtRecived/boughtRecivedSlice";
+import { useSelector, useDispatch } from "react-redux";
+
+import {
+  selectBought,
+  selectCurrencyRate,
+  changeItemToRecived,
+} from "./../features/BoughtRecived/boughtRecivedSlice";
 import { Flex } from "@chakra-ui/react";
 
 const List = () => {
+  const currencyRate = useSelector(selectCurrencyRate);
+  const items = useSelector(selectBought);
+  const dispatch = useDispatch();
   const [isListTab, setIsListTab] = useState(true);
+
   const handleChangeTab = (isShowListTab) => {
     setIsListTab(isShowListTab);
   };
@@ -16,9 +26,14 @@ const List = () => {
         <button onClick={() => handleChangeTab(true)}>List </button>
         <button onClick={() => handleChangeTab(false)}>Store </button>
       </div>
+      {currencyRate}
       {isListTab && (
         <Flex wrap="wrap">
-          <Items selectItems={selectBought} />
+          <Items
+            items={items}
+            selectItem={(id) => dispatch(changeItemToRecived(id))}
+            currencyRate={currencyRate}
+          />
         </Flex>
       )}
       {!isListTab && <div>Store tab</div>}

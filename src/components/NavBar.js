@@ -1,14 +1,12 @@
 import React from "react";
 import { useLocation, Link } from "react-router-dom";
+import { Flex } from "@chakra-ui/react";
 
-const NavBar = () => {
-  const currLocation = useLocation();
+const NavBar = ({ children }) => {
   return (
-    <div>
-      <Link to="/list">List</Link>
-      <span> </span>
-      <Link to="/recived">Recived</Link>
-    </div>
+    <Flex justify="space-between" p="10px">
+      {children}
+    </Flex>
   );
 };
 

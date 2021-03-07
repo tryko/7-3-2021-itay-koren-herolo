@@ -10,7 +10,7 @@ export const fetchCurrencyRate = createAsyncThunk(
       );
       const data = await resp.json();
       console.log("try data: ", data);
-      return data.rates;
+      return data;
     } catch (error) {
       console.log("catch error: ", error);
       return error;
@@ -31,6 +31,9 @@ export const boughtRecivedSlice = createSlice({
         return item;
       });
     },
+    changeCurrency: (state, action) => {
+      state.selectedCurrency = action.payload;
+    },
   },
   extraReducers: {
     [fetchCurrencyRate.pending]: (state, action) => {
@@ -39,7 +42,7 @@ export const boughtRecivedSlice = createSlice({
     },
     [fetchCurrencyRate.fulfilled]: (state, action) => {
       state.fetchRateStatus = "success";
-      state.rateUSD = action.payload.ILS;
+      state.currencies = action.payload;
       state.error = "";
     },
     [fetchCurrencyRate.rejected]: (state, action) => {
@@ -49,12 +52,21 @@ export const boughtRecivedSlice = createSlice({
   },
 });
 
-export const { changeItemToRecived } = boughtRecivedSlice.actions;
+export const {
+  changeItemToRecived,
+  changeCurrency,
+} = boughtRecivedSlice.actions;
 
 export const selectBought = (state) =>
   state.items.filter((item) => !item.isRecived);
 
 export const selectRecived = (state) =>
   state.items.filter((item) => item.isRecived);
+
+export const selectCurrencyRate = (state) => {
+  const { currencies, selectedCurrency } = state;
+  if (currencies.base === selectedCurrency) return 1;
+  return currencies.rates[selectedCurrency];
+};
 
 export default boughtRecivedSlice.reducer;

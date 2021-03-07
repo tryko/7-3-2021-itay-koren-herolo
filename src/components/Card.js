@@ -22,7 +22,7 @@ const Card = ({
       <div> {name}</div>
       <div>{deliveryDate}</div>
       <br />
-      {price.cost} <span>{price.currency}</span>
+      {price} <span></span>
       {!isRecived && <button onClick={handleClick}>Recived</button>}
       <br />
       {onlineStore}

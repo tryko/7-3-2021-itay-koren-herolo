@@ -1,14 +1,9 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { changeItemToRecived } from "./boughtRecivedSlice";
 import Card from "./../../components/Card";
 import { sortByDate } from "../../util";
 
-const Items = ({ selectItems }) => {
+const Items = ({ items, selectItem, currencyRate = 1 }) => {
   // items gets different selector acording to view
-  const items = useSelector(selectItems);
-  const dispatch = useDispatch();
-
   const getDate = (epochTime) => {
     const newDate = new Date(epochTime);
     return newDate.toLocaleDateString();
@@ -21,9 +16,9 @@ const Items = ({ selectItems }) => {
           key={item.id}
           name={item.name}
           deliveryDate={getDate(item.deliveryDate)}
-          price={item.price}
+          price={(item.price * currencyRate).toFixed(2)}
           isRecived={item.isRecived}
-          handleClick={() => dispatch(changeItemToRecived(item.id))}
+          handleClick={() => selectItem(item.id)}
           onlineStore={item.onlineStore}
         />
       ))}

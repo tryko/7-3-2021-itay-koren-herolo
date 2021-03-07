@@ -1,12 +1,19 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Items from "../features/BoughtRecived/Items";
-import { selectRecived } from "./../features/BoughtRecived/boughtRecivedSlice";
+import {
+  selectRecived,
+  selectCurrencyRate,
+} from "./../features/BoughtRecived/boughtRecivedSlice";
 
 const Recived = () => {
+  const currencyRate = useSelector(selectCurrencyRate);
+  const items = useSelector(selectRecived);
+
   return (
     <div>
       this is recived
-      <Items selectItems={selectRecived} />
+      <Items items={items} currencyRate={currencyRate} />
     </div>
   );
 };
