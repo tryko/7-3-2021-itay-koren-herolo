@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
 import { initialState } from "../../Data";
 
 export const fetchCurrencyRate = createAsyncThunk(
@@ -6,16 +6,18 @@ export const fetchCurrencyRate = createAsyncThunk(
   async () => {
     try {
       const resp = await fetch(
-        "https://api.exchangeratesapi.io/latest?base=USD",
+        "https://api.exchangeratesapi.io/latest?base=USssD"
       );
       const data = await resp.json();
-      console.log("try data: ", data);
-      return data;
+      if (resp.status > 199 && resp.status < 300) {
+        return data;
+      }
+      throw data
     } catch (error) {
       console.log("catch error: ", error);
       return error;
     }
-  },
+  }
 );
 
 export const boughtRecivedSlice = createSlice({
@@ -34,13 +36,13 @@ export const boughtRecivedSlice = createSlice({
     changeCurrencyAction: (state, action) => {
       state.selectedCurrency = action.payload;
     },
-    AddNewItemAction: (state, action) =>{
+    AddNewItemAction: (state, action) => {
       const newItem = {
         ...action.payload,
         deliveryDate: new Date(action.payload.deliveryDate).valueOf(),
-      }
+      };
       state.items = [...state.items, newItem];
-    }
+    },
   },
   extraReducers: {
     [fetchCurrencyRate.pending]: (state, action) => {
@@ -48,13 +50,17 @@ export const boughtRecivedSlice = createSlice({
       state.error = "";
     },
     [fetchCurrencyRate.fulfilled]: (state, action) => {
+      console.log("success");
       state.fetchRateStatus = "success";
       state.currencies = action.payload;
       state.error = "";
     },
     [fetchCurrencyRate.rejected]: (state, action) => {
+      console.log("failed");
       state.fetchRateStatus = "failed";
       state.error = action.error.message;
+      state.items = [];
+      state.currencies.rates = { [state.selectedCurrency]: 1 };
     },
   },
 });
@@ -62,7 +68,7 @@ export const boughtRecivedSlice = createSlice({
 export const {
   changeItemToRecivedAction,
   changeCurrencyAction,
-  AddNewItemAction
+  AddNewItemAction,
 } = boughtRecivedSlice.actions;
 
 export const selectBought = (state) =>
@@ -74,7 +80,24 @@ export const selectRecived = (state) =>
 export const selectCurrencyRate = (state) => {
   const { currencies, selectedCurrency } = state;
   if (currencies.base === selectedCurrency) return 1;
+  console.log(state);
   return currencies.rates[selectedCurrency];
 };
+
+export const selectByStore = (state) => {
+  const stores = state.items.map((item) => item.onlineStore);
+  const uniqStores = Array.from(new Set(stores));
+  const storeItems = uniqStores.map((store) => {
+    return {
+      id: nanoid(),
+      name: store,
+      items: state.items.filter((item) => item.onlineStore === store),
+    };
+  });
+  console.log(storeItems);
+  return storeItems;
+};
+
+export const selectError = (state) => state.error;
 
 export default boughtRecivedSlice.reducer;

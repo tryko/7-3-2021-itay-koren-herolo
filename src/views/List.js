@@ -1,40 +1,38 @@
+// node modules
 import { useState } from "react";
 import Items from "../features/BoughtRecived/Items";
 import { useSelector, useDispatch } from "react-redux";
-import { Flex, Button, useDisclosure } from "@chakra-ui/react";
+import { Button, Flex, useDisclosure } from "@chakra-ui/react";
 
+// store
 import {
   AddNewItemAction,
   changeItemToRecivedAction,
   selectBought,
   selectCurrencyRate,
+  selectByStore,
 } from "./../features/BoughtRecived/boughtRecivedSlice";
+
+// components
 import AddItem from "./../features/BoughtRecived/AddItem";
 import BasicModal from "./../components/BasicModal";
+import SidePanel from "./../components/SidePanel";
+import StoreCard from "./../components/StoreCard";
 
 const List = () => {
   const currencyRate = useSelector(selectCurrencyRate);
   const items = useSelector(selectBought);
+  const uniqStores = useSelector(selectByStore);
   const dispatch = useDispatch();
   const [newItem, setNewItem] = useState({});
-  const [isListTab, setIsListTab] = useState(true);
+  const [isShowAllItems, setIsShowAllItems] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const handleChangeTab = (isShowListTab) => {
-    setIsListTab(isShowListTab);
-  };
 
   return (
     <div>
-      this is list
-      <div>
-        <button onClick={() => handleChangeTab(true)}>List </button>
-        <span> </span>
-        <button onClick={() => handleChangeTab(false)}>Store </button>
-      </div>
-      {newItem.name}
-      {isListTab && (
-        <Flex wrap="wrap">
+      <SidePanel isOpen={true} changeTab={setIsShowAllItems} isShowAllItems={isShowAllItems} />
+      {isShowAllItems && (
+        <Flex wrap="wrap" ml="200px">
           <Items
             items={items}
             selectItem={(id) => dispatch(changeItemToRecivedAction(id))}
@@ -46,6 +44,9 @@ const List = () => {
           <BasicModal
             isOpen={isOpen}
             onClose={() => {
+              onClose();
+            }}
+            onSubmit={() => {
               dispatch(AddNewItemAction(newItem));
               onClose();
             }}
@@ -54,7 +55,13 @@ const List = () => {
           </BasicModal>
         </Flex>
       )}
-      {!isListTab && <div>Store tab</div>}
+      {!isShowAllItems && (
+        <Flex ml="200px">
+          {uniqStores.map((store) => {
+            return <StoreCard key={store.id} store={store} />;
+          })}
+        </Flex>
+      )}
     </div>
   );
 };

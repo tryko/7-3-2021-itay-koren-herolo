@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Button } from "@chakra-ui/react";
 
 const Card = ({
   name,
@@ -21,12 +21,20 @@ const Card = ({
     >
       <div> {name}</div>
       <div>{deliveryDate}</div>
-      <br />
       {price} <span></span>
-      {!isRecived && <button onClick={handleClick}>Recived</button>}
-      <br />
       {onlineStore}
-      <br />
+      {!isRecived && (
+        <Button
+          onClick={handleClick}
+          fontSize="14px"
+          h="25px"
+          mt="10px"
+          background="telegram.100"
+          _hover={{ background: "telegram.400" }}
+        >
+          Recived
+        </Button>
+      )}
     </Flex>
   );
 };

@@ -10,7 +10,7 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 
-const BasicModal = ({ isOpen, onClose, children }) => {
+const BasicModal = ({ isOpen, onClose, onSubmit, children }) => {
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -22,7 +22,7 @@ const BasicModal = ({ isOpen, onClose, children }) => {
           <ModalBody>{children}</ModalBody>
 
           <ModalFooter justifyContent="space-between">
-            <Button colorScheme="blue" mr={1} onClick={onClose} fontSize="13px">
+            <Button colorScheme="blue" mr={1} onClick={onSubmit} fontSize="13px">
               Submit
             </Button>
           </ModalFooter>
