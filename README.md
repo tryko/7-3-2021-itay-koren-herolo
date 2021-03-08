@@ -2,6 +2,8 @@ Questions:
 1. review of the basicModal structur
    1. is how I save data in form a good way?
 2. form validation how should I go about it?
+3. app is kinda big and moving all the parts in navbar to the component file
+   will make it constrained to those components
 
 
 Todos:
@@ -13,3 +15,4 @@ Todos:
 3. add items with an add button.
    1. validation?
 4. handle errors from server
+5. add icons 
