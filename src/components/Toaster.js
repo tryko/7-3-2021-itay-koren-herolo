@@ -1,9 +1,10 @@
 import React from "react";
 import { Box, Flex, Slide } from "@chakra-ui/react";
 
-const Toaster = ({ hasMSG }) => {
+const Toaster = ({ hasError, msg }) => {
+    console.log(hasError)
   return (
-    <Slide direction="bottom" in={hasMSG}>
+    <Slide direction="bottom" in={hasError}>
       <Flex justify="center">
         <Box
           background="salmon"
@@ -16,7 +17,7 @@ const Toaster = ({ hasMSG }) => {
           borderTopLeftRadius="10px"
           fontWeight="600"
         >
-          An Error Has Occured
+          {msg}
         </Box>
       </Flex>
     </Slide>

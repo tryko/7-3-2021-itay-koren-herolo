@@ -1,5 +1,7 @@
 import { Input, FormControl, FormLabel } from "@chakra-ui/react";
 const AddItem = ({ setFormData }) => {
+  // useState
+  // move submit here
   const handleFormData = (e) => {
     const inputData = e.target.value;
     const inputId = e.target.id;
@@ -14,7 +16,7 @@ const AddItem = ({ setFormData }) => {
     <>
       <FormControl id="name">
         <FormLabel>Name</FormLabel>
-        <Input type="text" onChange={handleFormData}/>
+        <Input type="text" onChange={handleFormData} />
       </FormControl>
       <FormControl id="price">
         <FormLabel>Price</FormLabel>

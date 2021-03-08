@@ -6,16 +6,17 @@ export const fetchCurrencyRate = createAsyncThunk(
   async () => {
     try {
       const resp = await fetch(
-        "https://api.exchangeratesapi.io/latest?base=USssD"
+        "https://api.exchangeratesapi.io/latest?base=USD"
       );
       const data = await resp.json();
       if (resp.status > 199 && resp.status < 300) {
         return data;
       }
-      throw data
+      // reject if a reply from the api of a bad request
+      return Promise.reject(new Error(data.error))
     } catch (error) {
-      console.log("catch error: ", error);
-      return error;
+      // reject if no reply at all (no internet)
+      return Promise.reject(error)
     }
   }
 );
@@ -50,15 +51,13 @@ export const boughtRecivedSlice = createSlice({
       state.error = "";
     },
     [fetchCurrencyRate.fulfilled]: (state, action) => {
-      console.log("success");
       state.fetchRateStatus = "success";
       state.currencies = action.payload;
       state.error = "";
     },
-    [fetchCurrencyRate.rejected]: (state, action) => {
-      console.log("failed");
+    [fetchCurrencyRate.rejected]: (state, error) => {
       state.fetchRateStatus = "failed";
-      state.error = action.error.message;
+      state.error = error.error.message;
       state.items = [];
       state.currencies.rates = { [state.selectedCurrency]: 1 };
     },

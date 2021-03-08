@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 export const initialState = {
   fetchRateStatus: "idle",
   selectedCurrency: "USD",
-  currencyConv: 1,
   currencies: {
     base: "USD",
     rates: { ILS: 3.3 },

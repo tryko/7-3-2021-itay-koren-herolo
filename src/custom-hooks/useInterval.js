@@ -18,4 +18,9 @@ export function useInterval(callback, delay) {
       return () => clearInterval(id);
     }
   }, [delay]);
+  
+  // calling the request the first time
+  useEffect(() => {
+    savedCallback.current();
+  }, [])
 }

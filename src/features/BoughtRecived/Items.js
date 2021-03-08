@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./../../components/Card";
-import { sortByDate } from "../../util";
+
+const sortByDate = (a, b) => b.deliveryDate - a.deliveryDate;
 
 const Items = ({ items, selectItem, currencyRate = 1 }) => {
   // items gets different selector acording to view

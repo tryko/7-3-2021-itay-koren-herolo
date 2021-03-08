@@ -1,5 +1,4 @@
 // node modules
-import { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -15,51 +14,30 @@ import { useInterval } from "./custom-hooks/useInterval";
 import {
   fetchCurrencyRate,
   changeCurrencyAction,
+  selectError,
 } from "./features/BoughtRecived/boughtRecivedSlice";
 
 // components
 import Toaster from "./components/Toaster";
-import SwitchBtn from "./components/SwitchBtn";
 import NavBar from "./components/NavBar";
 import List from "./views/List";
 import Recived from "./views/Recived";
 
 function App() {
+  const errorMSG = useSelector(selectError);
   const dispatch = useDispatch();
-  const fetchRateStatus = useSelector((state) => state.fetchRateStatus);
 
-  // useInterval(() => {
-  //   dispatch(fetchCurrencyRate());
-  // }, 7000);
+  useInterval(() => {
+    dispatch(fetchCurrencyRate());
+  }, 7000);
 
-  // useEffect(() => {
-  //   if (fetchRateStatus === "idle") {
-  //     dispatch(fetchCurrencyRate());
-  //   }
-  // }, [fetchRateStatus, dispatch]);
+  const changeCurrancy = (selectedCurrency) =>
+    dispatch(changeCurrencyAction(selectedCurrency));
 
   return (
     <div>
       <Router>
-        <NavBar>
-          <div>
-            <Button fontSize="14px" h="20px" mr="10px">
-              <Link to="/list">List</Link>
-            </Button>
-            <Button fontSize="14px" h="20px">
-              <Link to="/recived">Recived</Link>
-            </Button>
-          </div>
-          <SwitchBtn
-            defaultValue="USD"
-            switchValue="ILS"
-            leftTxt="USD"
-            rightTxt="ILS"
-            toggle={(selectedCurrency) =>
-              dispatch(changeCurrencyAction(selectedCurrency))
-            }
-          />
-        </NavBar>
+        <NavBar toggle={changeCurrancy}/>
         <Box mt="50px">
           <Switch>
             <Route path="/list" component={List} />
@@ -69,7 +47,7 @@ function App() {
           </Switch>
         </Box>
       </Router>
-      <Toaster hasMSG={true} />
+      <Toaster hasError={!!errorMSG} msg={errorMSG} />
     </div>
   );
 }
