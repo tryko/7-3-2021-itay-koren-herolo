@@ -1,10 +1,9 @@
-import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SwitchBtn from "./components/SwitchBtn";
 import {
   fetchCurrencyRate,
-  changeCurrency,
+  changeCurrencyAction,
 } from "./features/BoughtRecived/boughtRecivedSlice";
 import { useInterval } from "./custom-hooks/useInterval";
 
@@ -42,7 +41,7 @@ function App() {
             leftTxt="USD"
             rightTxt="ILS"
             toggle={(selectedCurrency) =>
-              dispatch(changeCurrency(selectedCurrency))
+              dispatch(changeCurrencyAction(selectedCurrency))
             }
           />
         </NavBar>

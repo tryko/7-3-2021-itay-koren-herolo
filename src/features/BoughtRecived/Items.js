@@ -16,7 +16,8 @@ const Items = ({ items, selectItem, currencyRate = 1 }) => {
           key={item.id}
           name={item.name}
           deliveryDate={getDate(item.deliveryDate)}
-          price={(item.price * currencyRate).toFixed(2)}
+          // the + is to prevent convert string numbers to number type
+          price={(+item.price * currencyRate).toFixed(2)}
           isRecived={item.isRecived}
           handleClick={() => selectItem(item.id)}
           onlineStore={item.onlineStore}

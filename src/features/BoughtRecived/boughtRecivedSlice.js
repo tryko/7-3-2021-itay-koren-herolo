@@ -22,7 +22,7 @@ export const boughtRecivedSlice = createSlice({
   name: "boughtRecivedItems",
   initialState: initialState,
   reducers: {
-    changeItemToRecived: (state, action) => {
+    changeItemToRecivedAction: (state, action) => {
       const itemId = action.payload;
       state.items = state.items.map((item) => {
         if (item.id === itemId) {
@@ -31,9 +31,16 @@ export const boughtRecivedSlice = createSlice({
         return item;
       });
     },
-    changeCurrency: (state, action) => {
+    changeCurrencyAction: (state, action) => {
       state.selectedCurrency = action.payload;
     },
+    AddNewItemAction: (state, action) =>{
+      const newItem = {
+        ...action.payload,
+        deliveryDate: new Date(action.payload.deliveryDate).valueOf(),
+      }
+      state.items = [...state.items, newItem];
+    }
   },
   extraReducers: {
     [fetchCurrencyRate.pending]: (state, action) => {
@@ -53,8 +60,9 @@ export const boughtRecivedSlice = createSlice({
 });
 
 export const {
-  changeItemToRecived,
-  changeCurrency,
+  changeItemToRecivedAction,
+  changeCurrencyAction,
+  AddNewItemAction
 } = boughtRecivedSlice.actions;
 
 export const selectBought = (state) =>
