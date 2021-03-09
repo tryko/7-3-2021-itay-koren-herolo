@@ -22,9 +22,7 @@ const BasicModal = ({ isOpen, onClose, onSubmit, children }) => {
           <ModalBody>{children}</ModalBody>
 
           <ModalFooter justifyContent="space-between">
-            <Button colorScheme="blue" mr={1} onClick={onSubmit} fontSize="13px">
-              Submit
-            </Button>
+            
           </ModalFooter>
         </ModalContent>
       </Modal>

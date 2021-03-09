@@ -11,6 +11,7 @@ import {
   selectBought,
   selectCurrencyRate,
   selectByStore,
+  selectStores
 } from "./../features/BoughtRecived/boughtRecivedSlice";
 
 // components
@@ -23,14 +24,18 @@ const List = () => {
   const currencyRate = useSelector(selectCurrencyRate);
   const items = useSelector(selectBought);
   const uniqStores = useSelector(selectByStore);
+  const stores = useSelector(selectStores);
   const dispatch = useDispatch();
-  const [newItem, setNewItem] = useState({});
   const [isShowAllItems, setIsShowAllItems] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <div>
-      <SidePanel isOpen={true} changeTab={setIsShowAllItems} isShowAllItems={isShowAllItems} />
+      <SidePanel
+        isOpen={true}
+        changeTab={setIsShowAllItems}
+        isShowAllItems={isShowAllItems}
+      />
       {isShowAllItems && (
         <Flex wrap="wrap" ml="200px">
           <Items
@@ -46,12 +51,14 @@ const List = () => {
             onClose={() => {
               onClose();
             }}
-            onSubmit={() => {
-              dispatch(AddNewItemAction(newItem));
-              onClose();
-            }}
           >
-            <AddItem setFormData={setNewItem} />
+            <AddItem
+              onSubmit={(newItem) => {
+                dispatch(AddNewItemAction(newItem));
+                onClose();
+              }}
+              selectItems={stores}
+            />
           </BasicModal>
         </Flex>
       )}

@@ -11,9 +11,5 @@ Todos:
 1. add navbar to go from "/list" to "/recived" and back => done
    1. make it visualy different when you navigate
    2. try to make the store data persistent in local storage.
-2. create 2 tabs in "/list" view
-3. add items with an add button.
-   1. validation?
-4. handle errors from server
 5. add icons 
 6. move sidepanel handling to redux

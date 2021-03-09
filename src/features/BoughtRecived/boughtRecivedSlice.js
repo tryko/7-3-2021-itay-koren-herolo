@@ -98,5 +98,6 @@ export const selectByStore = (state) => {
 };
 
 export const selectError = (state) => state.error;
+export const selectStores = (state) => state.stores;
 
 export default boughtRecivedSlice.reducer;

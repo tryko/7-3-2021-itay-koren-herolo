@@ -27,9 +27,9 @@ function App() {
   const errorMSG = useSelector(selectError);
   const dispatch = useDispatch();
 
-  useInterval(() => {
-    dispatch(fetchCurrencyRate());
-  }, 7000);
+  // useInterval(() => {
+  //   dispatch(fetchCurrencyRate());
+  // }, 7000);
 
   const changeCurrancy = (selectedCurrency) =>
     dispatch(changeCurrencyAction(selectedCurrency));
