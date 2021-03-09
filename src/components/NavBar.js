@@ -1,9 +1,10 @@
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useHistory  } from "react-router-dom";
 import { Button, Flex } from "@chakra-ui/react";
 import SwitchBtn from './SwitchBtn'
 
 const NavBar = ({toggle}) => {
+  const history = useHistory()
   return (
     <Flex
       justify="space-between"
@@ -14,11 +15,11 @@ const NavBar = ({toggle}) => {
       top="0"
     >
       <div>
-        <Button fontSize="14px" h="20px" mr="10px">
-          <Link to="/list">List</Link>
+        <Button fontSize="14px" h="20px" mr="10px" onClick={() => history.push("/list")}>
+          List
         </Button>
-        <Button fontSize="14px" h="20px">
-          <Link to="/recived">Recived</Link>
+        <Button fontSize="14px" h="20px" onClick={() => history.push("/recived")}>
+          Recived
         </Button>
       </div>
       <SwitchBtn

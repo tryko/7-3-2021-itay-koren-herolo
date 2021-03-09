@@ -7,7 +7,7 @@ export const initialState = {
     base: "USD",
     rates: { ILS: 3.3 },
   },
-  stores:["Amazon", "Ebay", "Ali-baba"],
+  stores:["amazon", "ebay", "ali-baba"],
   error: "",
   items: [
     {

@@ -4,18 +4,15 @@ import {
   Redirect,
   Switch,
   Route,
-  Link,
 } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 // store and hook
 import { useInterval } from "./custom-hooks/useInterval";
-import {
-  fetchCurrencyRate,
-  changeCurrencyAction,
-  selectError,
-} from "./features/BoughtRecived/boughtRecivedSlice";
+import { changeCurrencyAction } from "./features/BoughtRecived/boughtRecivedSlice";
+import { fetchCurrencyRate } from "./features/BoughtRecived/boughtRecivedMiddleWear";
+import { selectError } from "./features/BoughtRecived/selectors";
 
 // components
 import Toaster from "./components/Toaster";
@@ -27,9 +24,9 @@ function App() {
   const errorMSG = useSelector(selectError);
   const dispatch = useDispatch();
 
-  // useInterval(() => {
-  //   dispatch(fetchCurrencyRate());
-  // }, 7000);
+  useInterval(() => {
+    dispatch(fetchCurrencyRate());
+  }, 10000);
 
   const changeCurrancy = (selectedCurrency) =>
     dispatch(changeCurrencyAction(selectedCurrency));
@@ -37,7 +34,7 @@ function App() {
   return (
     <div>
       <Router>
-        <NavBar toggle={changeCurrancy}/>
+        <NavBar toggle={changeCurrancy} />
         <Box mt="50px">
           <Switch>
             <Route path="/list" component={List} />

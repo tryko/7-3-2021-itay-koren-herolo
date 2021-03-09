@@ -16,17 +16,6 @@ import {
 } from "./addItemValidators";
 
 const AddItem = ({ onSubmit, selectItems }) => {
-  // useState
-  // move submit here
-  // const handleFormData = (e) => {
-  //   const inputData = e.target.value;
-  //   const inputId = e.target.id;
-  //   console.log(inputId);
-  //   setFormData((prevData) => {
-  //     prevData[inputId] = inputData;
-  //     return { ...prevData };
-  //   });
-  // };
 
   return (
     <Formik
@@ -37,7 +26,6 @@ const AddItem = ({ onSubmit, selectItems }) => {
         deliveryDate: new Date(),
       }}
       onSubmit={(values, actions) => {
-        console.log("submit", values);
         onSubmit({ ...values, id: uuidv4() });
       }}
     >

@@ -5,7 +5,7 @@ import {Box,Flex} from '@chakra-ui/react';
 import {
   selectRecived,
   selectCurrencyRate,
-} from "./../features/BoughtRecived/boughtRecivedSlice";
+} from "./../features/BoughtRecived/selectors";
 
 import Items from "../features/BoughtRecived/Items";
 

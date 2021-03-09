@@ -17,7 +17,6 @@ export const validatePrice = (value) => {
 };
 
 export const validateStore = (value) => {
-    console.log(value)
   let error;
   if (!value) {
     error = "You must select a store";

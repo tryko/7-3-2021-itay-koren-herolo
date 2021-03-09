@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Button,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -10,7 +9,7 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 
-const BasicModal = ({ isOpen, onClose, onSubmit, children }) => {
+const BasicModal = ({ isOpen, onClose, children }) => {
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose}>

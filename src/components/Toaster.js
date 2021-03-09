@@ -2,7 +2,6 @@ import React from "react";
 import { Box, Flex, Slide } from "@chakra-ui/react";
 
 const Toaster = ({ hasError, msg }) => {
-    console.log(hasError)
   return (
     <Slide direction="bottom" in={hasError}>
       <Flex justify="center">

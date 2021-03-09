@@ -6,13 +6,15 @@ import { Button, Flex, useDisclosure } from "@chakra-ui/react";
 
 // store
 import {
-  AddNewItemAction,
-  changeItemToRecivedAction,
   selectBought,
   selectCurrencyRate,
   selectByStore,
-  selectStores
-} from "./../features/BoughtRecived/boughtRecivedSlice";
+  selectStores,
+} from "./../features/BoughtRecived/selectors";
+import {
+  AddNewItemAction,
+  changeItemToRecivedAction,
+} from "./../features/BoughtRecived/boughtRecivedSlice.js";
 
 // components
 import AddItem from "./../features/BoughtRecived/AddItem";

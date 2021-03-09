@@ -19,7 +19,7 @@ const SidePanel = ({ changeTab, isOpen, isShowAllItems }) => {
             isActive={isShowAllItems}
             _active={{ background: "facebook.300" }}
           >
-            All Items{" "}
+            All Items
           </Button>
 
           <Button
