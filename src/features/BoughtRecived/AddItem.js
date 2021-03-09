@@ -16,7 +16,6 @@ import {
 } from "./addItemValidators";
 
 const AddItem = ({ onSubmit, selectItems }) => {
-
   return (
     <Formik
       initialValues={{
@@ -26,7 +25,8 @@ const AddItem = ({ onSubmit, selectItems }) => {
         deliveryDate: new Date(),
       }}
       onSubmit={(values, actions) => {
-        onSubmit({ ...values, id: uuidv4() });
+        const price = +values.price;
+        onSubmit({ ...values, price: price, id: uuidv4() });
       }}
     >
       {(props) => (
